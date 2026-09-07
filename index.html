@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portofolio dan Layanan Jasa Pembuatan Website.">
   <!-- AOS CSS -->
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <title>TOMZSTORE - Jasa Pembuatan Website</title>
   <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -46,18 +46,6 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 .cart-drawer{position:fixed;right:-430px;top:0;width:min(430px,92%);height:100%;background:#fff;z-index:60;transition:.25s;padding:25px;display:flex;flex-direction:column;box-shadow:-15px 0 45px rgba(0,0,0,.12)}.cart-drawer.show{right:0}.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.drawer-head h2{font-size:25px}.drawer-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:18px}.total{display:flex;justify-content:space-between;margin-bottom:15px}.cart-item{padding:15px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.cart-item p{font-weight:750}.cart-item small{color:var(--muted)}.remove{border:0;background:none;color:#b42318;cursor:pointer;font-size:13px}
 @media(max-width:800px){nav{display:none}.hero{padding:65px 0}.hero-grid,.about-grid{grid-template-columns:1fr;gap:35px}.product-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:stretch;flex-direction:column}.search-wrap input{width:100%}.contact-card{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.product-grid{grid-template-columns:1fr}.product-img{height:210px}h1{letter-spacing:-2px}.nav{gap:10px}.logo{font-size:20px}.hero-card{padding:28px}.footer-inner{gap:15px;flex-direction:column}}
-    /* Keadaan awal sebelum discroll (tersembunyi & sedikit bergeser ke bawah) */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-/* Keadaan setelah discroll sampai ke posisi elemen */
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
   </style>
 </head>
 <body>
@@ -78,12 +66,12 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">WEB DEVELOPMENT • SERVICES</p>
-          <h1 data-aos="fade-up"class="reveal">Bikin website impian usahamu.</h1>
-          <p class="hero-text" data-aos="fade-up"class="reveal">Pilih paket layanan web yang sesuai kebutuhan usahamu. Konsultasikan ide, pilih fitur, dan pesan langsung via WhatsApp.</p>
-          <a href="#services" class="btn primary" data-aos="fade-up">Lihat Paket Layanan →</a>
+          <p class="eyebrow" data-aos="fade-up">WEB DEVELOPMENT • SERVICES</p>
+          <h1 data-aos="fade-up" data-aos-delay="100">Bikin website impian usahamu.</h1>
+          <p class="hero-text" data-aos="fade-up" data-aos-delay="200">Pilih paket layanan web yang sesuai kebutuhan usahamu. Konsultasikan ide, pilih fitur, dan pesan langsung via WhatsApp.</p>
+          <a href="#services" class="btn primary" data-aos="fade-up" data-aos-delay="300">Lihat Paket Layanan →</a>
         </div>
-        <div class="hero-card">
+        <div class="hero-card" data-aos="zoom-in">
           <div class="hero-icon">💻</div>
           <h3>Proses Cepat & Praktis</h3>
           <p>Diskusikan konsep website kamu langsung via WhatsApp tanpa proses rumit.</p>
@@ -93,7 +81,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 
     <section class="products-section" id="services">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head" data-aos="fade-up">
           <div>
             <p class="eyebrow">LAYANAN</p>
             <h2>Pilihan Paket Website</h2>
@@ -103,7 +91,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
           </div>
         </div>
 
-        <div class="categories" id="categories"></div>
+        <div class="categories" id="categories" data-aos="fade-up"></div>
         <div class="product-grid" id="productGrid"></div>
         <p class="empty" id="emptyState" hidden>Layanan tidak ditemukan.</p>
       </div>
@@ -111,16 +99,16 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 
     <section class="about" id="about">
       <div class="container about-grid">
-        <div>
+        <div data-aos="fade-right">
           <p class="eyebrow">TENTANG TOMZSTORE</p>
           <h2>Website profesional untuk menaikkan level usahamu.</h2>
         </div>
-        <p>Halo! Aku TOMZ dari TOMZSTORE. Aku melayani jasa pembuatan website yang rapi, modern, responsif, dan fungsional untuk membantu mengenalkan brand serta mengembangkan usaha kamu secara online.</p>
+        <p data-aos="fade-left">Halo! Aku TOMZ dari TOMZSTORE. Aku melayani jasa pembuatan website yang rapi, modern, responsif, dan fungsional untuk membantu mengenalkan brand serta mengembangkan usaha kamu secara online.</p>
       </div>
     </section>
 
     <section class="contact" id="contact">
-      <div class="container contact-card">
+      <div class="container contact-card" data-aos="zoom-in">
         <div>
           <p class="eyebrow">KONTAK</p>
           <h2>Punya pertanyaan khusus?</h2>
@@ -168,18 +156,26 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
   </div>
   <div class="overlay" id="overlay"></div>
 
+  <!-- LOAD SCRIPT AOS LEBIH AWAL -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
   <script>
+// =============================
+// INISIALISASI AOS ANIMATION
+// =============================
+AOS.init({
+  duration: 800,
+  once: true
+});
+
 // =============================
 // PENGATURAN TOKO
 // =============================
 const STORE = {
-  whatsapp: "62895343287264", // Nomor WhatsApp kamu
+  whatsapp: "62895343287264",
   name: "Tomzstore"
 };
 
-// =============================
-// DATA LAYANAN JASA WEBSITE
-// =============================
 const products = [
   {id:1, name:"Landing Page Sederhana", price:250000, category:"Landing Page", emoji:"🚀", image:"", description:"Website 1 halaman fokus konversi, cocok untuk promosi produk/jasa tunggal."},
   {id:2, name:"Website Company Profile", price:500000, category:"Profile", emoji:"🏢", image:"", description:"Website profil bisnis/usaha lengkap dengan menu Beranda, Tentang, Layanan, & Kontak."},
@@ -232,11 +228,14 @@ function renderProducts(){
       </div>
     </article>
   `).join("");
+  
   grid.querySelectorAll(".add-btn").forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.id)));
   grid.querySelectorAll(".order-btn").forEach(b=>b.onclick=()=>openOrder(Number(b.dataset.id)));
-  // Tambahkan baris ini di paling bawah fungsi renderProducts:
-  if (typeof AOS !== 'undefined') {
-    AOS.refresh();
+  
+  // Refresh AOS agar kartu produk yang baru di-render otomatis beranimasi
+  setTimeout(() => {
+    if (typeof AOS !== 'undefined') AOS.refresh();
+  }, 100);
 }
 
 function addToCart(id){
@@ -300,7 +299,7 @@ document.getElementById("orderForm").addEventListener("submit",e=>{
   const note=document.getElementById("customerNote").value.trim();
   if(!name || !selectedProduct)return;
   let message=`Halo TOMZSTORE, saya ${name}. Saya tertarik dengan layanan *${selectedProduct.name}* (${rupiah(selectedProduct.price)}).`;
-  if(note)message+=`Detail kebutuhan:${note}`;
+  if(note)message+=`%0A%0ADetail kebutuhan:%0A${note}`;
   window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
   closeOrder();
 });
@@ -319,16 +318,6 @@ document.getElementById("checkoutCart").onclick=()=>{
   const message=`Halo TOMZSTORE, saya ${name.trim()}. Saya berminat untuk pesan/konsultasi layanan berikut:\n${lines}\n\nEstimasi Total: ${rupiah(total)}`;
   window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
 };
-  const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-    }
-  });
-}, { threshold: 0.1 });
-
-// Jalankan untuk semua elemen dengan kelas .reveal
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 document.getElementById("cartBtn").onclick=openCart;
 document.getElementById("closeCart").onclick=closeCart;
@@ -342,13 +331,5 @@ renderCategories();
 renderProducts();
 renderCart();
   </script>
-  <!-- AOS JS -->
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 800, // Durasi animasi (dalam milidetik)
-    once: true     // Animasi hanya jalan sekali saat discroll
-  });
-</script>
 </body>
 </html>
