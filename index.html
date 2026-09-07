@@ -299,7 +299,7 @@ document.getElementById("orderForm").addEventListener("submit",e=>{
   const note=document.getElementById("customerNote").value.trim();
   if(!name || !selectedProduct)return;
   let message=`Halo TOMZSTORE, saya ${name}. Saya tertarik dengan layanan *${selectedProduct.name}* (${rupiah(selectedProduct.price)}).`;
-  if(note)message+=`%0A%0ADetail kebutuhan:%0A${note}`;
+  if(note)message+=`Detail kebutuhan:${note}`;
   window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
   closeOrder();
 });
