@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MENGUNCI ZOOM AGAR TIDAK BISA DI-ZOOM/DI-PERKECIL -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="Portofolio dan Layanan Jasa Pembuatan Website.">
   <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -10,8 +11,8 @@
   <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f7f7f8;--card:#fff;--text:#17181c;--muted:#6b6f78;--line:#e7e8eb;--accent:#111827;--soft:#eef0f3}
-html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+html{scroll-behavior:smooth; touch-action: manipulation;}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6; overscroll-behavior-y: none;}
 a{text-decoration:none;color:inherit}
 button,input,textarea{font:inherit}
 .container{width:min(1120px,92%);margin:auto}
@@ -156,21 +157,14 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
   </div>
   <div class="overlay" id="overlay"></div>
 
-  <!-- LOAD SCRIPT AOS LEBIH AWAL -->
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
   <script>
-// =============================
-// INISIALISASI AOS ANIMATION
-// =============================
 AOS.init({
   duration: 800,
   once: true
 });
 
-// =============================
-// PENGATURAN TOKO
-// =============================
 const STORE = {
   whatsapp: "62895343287264",
   name: "Tomzstore"
@@ -232,7 +226,6 @@ function renderProducts(){
   grid.querySelectorAll(".add-btn").forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.id)));
   grid.querySelectorAll(".order-btn").forEach(b=>b.onclick=()=>openOrder(Number(b.dataset.id)));
   
-  // Refresh AOS agar kartu produk yang baru di-render otomatis beranimasi
   setTimeout(() => {
     if (typeof AOS !== 'undefined') AOS.refresh();
   }, 100);
@@ -293,31 +286,41 @@ function closeCart(){
   if(!document.getElementById("orderModal").classList.contains("show"))document.getElementById("overlay").classList.remove("show");
 }
 
-document.getElementById("orderForm").addEventListener("submit",e=>{
+// KIRIM SINGLE ORDER
+document.getElementById("orderForm").addEventListener("submit", e => {
   e.preventDefault();
-  const name=document.getElementById("customerName").value.trim();
-  const note=document.getElementById("customerNote").value.trim();
-  if(!name || !selectedProduct)return;
-  // GUNAKAN CARA INI (Pakai \n untuk enter):
-  let message = `Halo TOMZSTORE, saya ${name}. Saya tertarik dengan layanan *${selectedProduct.name}* (${rupiah(selectedProduct.price)}).`;
-  if(note) message += `\n\nDetail kebutuhan:\n${note}`;
-  window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
+  const name = document.getElementById("customerName").value.trim();
+  const note = document.getElementById("customerNote").value.trim();
+  if(!name || !selectedProduct) return;
+
+  // Menggunakan susunan teks murni menggunakan enter biasa
+  let textMessage = `Halo TOMZSTORE, saya ${name}.\n\nSaya tertarik dengan layanan:\n*${selectedProduct.name}* (${rupiah(selectedProduct.price)})`;
+  if(note) {
+    textMessage += `\n\nDetail kebutuhan:\n${note}`;
+  }
+
+  // Buka WhatsApp tanpa merangkap teks %0A
+  window.open(`https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent(textMessage)}`, "_blank");
   closeOrder();
 });
 
-document.getElementById("checkoutCart").onclick=()=>{
+// CHECKOUT DARI KERANJANG
+document.getElementById("checkoutCart").onclick = () => {
   if(!cart.length){alert("Belum ada layanan yang dipilih.");return;}
-  const name=prompt("Masukkan nama kamu / nama usaha:");
-  if(!name || !name.trim())return;
-  let total=0;
-  const lines=cart.map(item=>{
-    const p=products.find(x=>x.id===item.id);
-    if(!p)return "";
-    total+=p.price;
+  const name = prompt("Masukkan nama kamu / nama usaha:");
+  if(!name || !name.trim()) return;
+  
+  let total = 0;
+  const listItems = cart.map(item => {
+    const p = products.find(x => x.id === item.id);
+    if(!p) return "";
+    total += p.price;
     return `- ${p.name} (${rupiah(p.price)})`;
   }).filter(Boolean).join("\n");
-  const message=`Halo TOMZSTORE, saya ${name.trim()}. Saya berminat untuk pesan/konsultasi layanan berikut:\n${lines}\n\nEstimasi Total: ${rupiah(total)}`;
-  window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
+
+  let textMessage = `Halo TOMZSTORE, saya ${name.trim()}.\n\nSaya berminat untuk pesan/konsultasi layanan berikut:\n${listItems}\n\n*Estimasi Total: ${rupiah(total)}*`;
+
+  window.open(`https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent(textMessage)}`, "_blank");
 };
 
 document.getElementById("cartBtn").onclick=openCart;
@@ -325,7 +328,10 @@ document.getElementById("closeCart").onclick=closeCart;
 document.getElementById("closeModal").onclick=closeOrder;
 document.getElementById("overlay").onclick=()=>{closeOrder();closeCart();};
 search.addEventListener("input",renderProducts);
-document.getElementById("contactWa").href=`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent("Halo TOMZSTORE, saya ingin bertanya tentang jasa pembuatan website.")}`;
+
+const contactText = "Halo TOMZSTORE, saya ingin bertanya tentang jasa pembuatan website.";
+document.getElementById("contactWa").href = `https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent(contactText)}`;
+
 document.getElementById("year").textContent=new Date().getFullYear();
 
 renderCategories();
