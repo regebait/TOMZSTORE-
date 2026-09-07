@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portofolio dan Layanan Jasa Pembuatan Website.">
+  <!-- AOS CSS -->
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <title>TOMZSTORE - Jasa Pembuatan Website</title>
   <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -44,6 +46,18 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 .cart-drawer{position:fixed;right:-430px;top:0;width:min(430px,92%);height:100%;background:#fff;z-index:60;transition:.25s;padding:25px;display:flex;flex-direction:column;box-shadow:-15px 0 45px rgba(0,0,0,.12)}.cart-drawer.show{right:0}.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.drawer-head h2{font-size:25px}.drawer-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:18px}.total{display:flex;justify-content:space-between;margin-bottom:15px}.cart-item{padding:15px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.cart-item p{font-weight:750}.cart-item small{color:var(--muted)}.remove{border:0;background:none;color:#b42318;cursor:pointer;font-size:13px}
 @media(max-width:800px){nav{display:none}.hero{padding:65px 0}.hero-grid,.about-grid{grid-template-columns:1fr;gap:35px}.product-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:stretch;flex-direction:column}.search-wrap input{width:100%}.contact-card{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.product-grid{grid-template-columns:1fr}.product-img{height:210px}h1{letter-spacing:-2px}.nav{gap:10px}.logo{font-size:20px}.hero-card{padding:28px}.footer-inner{gap:15px;flex-direction:column}}
+    /* Keadaan awal sebelum discroll (tersembunyi & sedikit bergeser ke bawah) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+/* Keadaan setelah discroll sampai ke posisi elemen */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
   </style>
 </head>
 <body>
@@ -65,9 +79,9 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
       <div class="container hero-grid">
         <div>
           <p class="eyebrow">WEB DEVELOPMENT • SERVICES</p>
-          <h1>Bikin website impian usahamu.</h1>
-          <p class="hero-text">Pilih paket layanan web yang sesuai kebutuhan usahamu. Konsultasikan ide, pilih fitur, dan pesan langsung via WhatsApp.</p>
-          <a href="#services" class="btn primary">Lihat Paket Layanan →</a>
+          <h1 data-aos="fade-up"class="reveal">Bikin website impian usahamu.</h1>
+          <p class="hero-text" data-aos="fade-up"class="reveal">Pilih paket layanan web yang sesuai kebutuhan usahamu. Konsultasikan ide, pilih fitur, dan pesan langsung via WhatsApp.</p>
+          <a href="#services" class="btn primary" data-aos="fade-up">Lihat Paket Layanan →</a>
         </div>
         <div class="hero-card">
           <div class="hero-icon">💻</div>
@@ -202,7 +216,7 @@ function renderProducts(){
   );
   empty.hidden = filtered.length !== 0;
   grid.innerHTML = filtered.map(p=>`
-    <article class="product">
+    <article class="product" data-aos="fade-up">
       <div class="product-img">
         ${p.image ? `<img src="${p.image}" alt="${p.name}">` : `<span>${p.emoji}</span>`}
       </div>
@@ -218,9 +232,11 @@ function renderProducts(){
       </div>
     </article>
   `).join("");
-
   grid.querySelectorAll(".add-btn").forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.id)));
   grid.querySelectorAll(".order-btn").forEach(b=>b.onclick=()=>openOrder(Number(b.dataset.id)));
+  // Tambahkan baris ini di paling bawah fungsi renderProducts:
+  if (typeof AOS !== 'undefined') {
+    AOS.refresh();
 }
 
 function addToCart(id){
@@ -303,6 +319,16 @@ document.getElementById("checkoutCart").onclick=()=>{
   const message=`Halo TOMZSTORE, saya ${name.trim()}. Saya berminat untuk pesan/konsultasi layanan berikut:\n${lines}\n\nEstimasi Total: ${rupiah(total)}`;
   window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
 };
+  const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    }
+  });
+}, { threshold: 0.1 });
+
+// Jalankan untuk semua elemen dengan kelas .reveal
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 document.getElementById("cartBtn").onclick=openCart;
 document.getElementById("closeCart").onclick=closeCart;
@@ -316,5 +342,13 @@ renderCategories();
 renderProducts();
 renderCart();
   </script>
+  <!-- AOS JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // Durasi animasi (dalam milidetik)
+    once: true     // Animasi hanya jalan sekali saat discroll
+  });
+</script>
 </body>
 </html>
