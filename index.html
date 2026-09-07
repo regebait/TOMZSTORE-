@@ -2,10 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <!-- MENGUNCI ZOOM AGAR TIDAK BISA DI-ZOOM/DI-PERKECIL -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="Portofolio dan Layanan Jasa Pembuatan Website.">
-  <!-- AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <title>TOMZSTORE - Jasa Pembuatan Website</title>
   <style>
@@ -43,7 +41,13 @@ h2{font-size:clamp(30px,4vw,45px);line-height:1.1;letter-spacing:-1.5px}
 .about{background:#111827;color:#fff;padding:85px 0}.about .eyebrow{color:#aeb4bf}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}.about-grid>p{color:#c7cbd3;font-size:17px}
 .contact{padding:70px 0}.contact-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:35px;display:flex;align-items:center;justify-content:space-between;gap:25px}.contact-card p:not(.eyebrow){color:var(--muted);margin-top:8px}
 footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:13px}.footer-inner{display:flex;justify-content:space-between}
-.modal,.overlay{position:fixed;inset:0;z-index:50;display:none}.modal{align-items:center;justify-content:center;padding:20px}.overlay{background:rgba(0,0,0,.5);z-index:40}.modal.show,.overlay.show{display:flex}.modal-box{position:relative;background:#fff;width:min(460px,100%);border-radius:22px;padding:30px;box-shadow:0 20px 70px rgba(0,0,0,.2)}.close{border:0;background:transparent;font-size:30px;line-height:1;cursor:pointer}.modal-box>.close{position:absolute;right:18px;top:16px}.modal-price{font-weight:800;font-size:20px;margin:8px 0 20px}.modal-box label{display:block;font-size:13px;font-weight:750;margin:14px 0 6px}.modal-box input,.modal-box textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none;resize:vertical}.modal-box small{display:block;color:var(--muted);margin-top:12px}
+.modal,.overlay{position:fixed;inset:0;z-index:50;display:none}.modal{align-items:center;justify-content:center;padding:20px}.overlay{background:rgba(0,0,0,.5);z-index:40}.modal.show,.overlay.show{display:flex}.modal-box{position:relative;background:#fff;width:min(460px,100%);max-height:90vh;overflow-y:auto;border-radius:22px;padding:30px;box-shadow:0 20px 70px rgba(0,0,0,.2)}.close{border:0;background:transparent;font-size:30px;line-height:1;cursor:pointer}.modal-box>.close{position:absolute;right:18px;top:16px}.modal-price{font-weight:800;font-size:20px;margin:8px 0 15px}.modal-box label{display:block;font-size:13px;font-weight:750;margin:14px 0 6px}.modal-box input,.modal-box textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none;resize:vertical}.modal-box small{display:block;color:var(--muted);margin-top:12px}
+
+/* STYLES QRIS PEMBAYARAN */
+.qris-box{background:var(--soft);border:1px dashed #cbd5e1;border-radius:16px;padding:15px;text-align:center;margin:15px 0}
+.qris-box img{width:180px;height:180px;object-fit:contain;border-radius:8px;background:#fff;padding:8px}
+.qris-box p{font-size:12px;color:var(--muted);margin-top:6px}
+
 .cart-drawer{position:fixed;right:-430px;top:0;width:min(430px,92%);height:100%;background:#fff;z-index:60;transition:.25s;padding:25px;display:flex;flex-direction:column;box-shadow:-15px 0 45px rgba(0,0,0,.12)}.cart-drawer.show{right:0}.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:15px}.drawer-head h2{font-size:25px}.drawer-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:18px}.total{display:flex;justify-content:space-between;margin-bottom:15px}.cart-item{padding:15px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.cart-item p{font-weight:750}.cart-item small{color:var(--muted)}.remove{border:0;background:none;color:#b42318;cursor:pointer;font-size:13px}
 @media(max-width:800px){nav{display:none}.hero{padding:65px 0}.hero-grid,.about-grid{grid-template-columns:1fr;gap:35px}.product-grid{grid-template-columns:repeat(2,1fr)}.section-head{align-items:stretch;flex-direction:column}.search-wrap input{width:100%}.contact-card{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.product-grid{grid-template-columns:1fr}.product-img{height:210px}h1{letter-spacing:-2px}.nav{gap:10px}.logo{font-size:20px}.hero-card{padding:28px}.footer-inner{gap:15px;flex-direction:column}}
@@ -133,14 +137,23 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
       <p class="eyebrow">KONSULTASI / PEMESANAN</p>
       <h2 id="modalProductName">Nama Layanan</h2>
       <p id="modalProductPrice" class="modal-price"></p>
+      
+      <!-- AREA SCAN QRIS -->
+      <div class="qris-box">
+        <strong>Scan QRIS Pembayaran</strong>
+        <p>Bisa bayar langsung via BCA, GoPay, OVO, Dana, ShopeePay, dll.</p>
+        <!-- Ganti src di bawah dengan URL/file gambar QRIS kamu -->
+        <img id="qrisImage" src="1788821435077.jpg" alt="QRIS Pembayaran TOMZSTORE">
+      </div>
+
       <form id="orderForm">
         <label for="customerName">Nama Kamu / Nama Usaha</label>
         <input id="customerName" type="text" maxlength="50" placeholder="Contoh: Budi (Toko Baju)" required>
         <label for="customerNote">Detail Kebutuhan (opsional)</label>
         <textarea id="customerNote" maxlength="300" rows="3" placeholder="Contoh: Saya ingin website landing page untuk jualan baju, butuh fitur tombol WA."></textarea>
-        <button class="btn primary full" type="submit">Konsultasi via WhatsApp</button>
+        <button class="btn primary full" type="submit">Konfirmasi & Chat WhatsApp</button>
       </form>
-      <small>WhatsApp akan terbuka otomatis dengan format pesan yang disesuaikan.</small>
+      <small>WhatsApp akan terbuka otomatis setelah konfirmasi.</small>
     </div>
   </div>
 
@@ -176,7 +189,7 @@ const products = [
   {id:3, name:"Website Catalog / Marketplace", price:750000, category:"Toko Online", emoji:"🛍️", image:"", description:"Website katalog produk terintegrasi tombol pesan WhatsApp langsung seperti web ini."},
   {id:4, name:"Website Portofolio", price:350000, category:"Profile", emoji:"🎨", image:"", description:"Website personal untuk memamerkan karya, skill, dan histori project kamu."},
   {id:5, name:"Redesign / Perbaikan Web", price:200000, category:"Custom", emoji:"🛠️", image:"", description:"Perapihan tampilan visual, perbaikan bug, atau optimalisasi responsif website kamu."},
-  {id:6, name:"Maintenance & Update Web", price:150000, category:"Custom", emoji:"⚡", image:"", description:"Jasa rutin update konten, backup data, dan menjaga performa website."}
+  {id:6, name:"Maintenance & Update Web", price:150000, category:"Custom", emoji:"⚡", description:"Jasa rutin update konten, backup data, dan menjaga performa website."}
 ];
 
 let selectedCategory = "Semua";
@@ -263,6 +276,10 @@ function openOrder(id){
   if(!selectedProduct)return;
   document.getElementById("modalProductName").textContent=selectedProduct.name;
   document.getElementById("modalProductPrice").textContent=rupiah(selectedProduct.price);
+  
+  // Opsi: Ganti gambar QRIS sesuai kebutuhan/layanan jika ada gambar khusus
+  // document.getElementById("qrisImage").src = "URL_GAMBAR_QRIS_KAMU.jpg";
+
   document.getElementById("orderModal").classList.add("show");
   document.getElementById("overlay").classList.add("show");
   document.getElementById("orderModal").setAttribute("aria-hidden","false");
@@ -286,25 +303,21 @@ function closeCart(){
   if(!document.getElementById("orderModal").classList.contains("show"))document.getElementById("overlay").classList.remove("show");
 }
 
-// KIRIM SINGLE ORDER
 document.getElementById("orderForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = document.getElementById("customerName").value.trim();
   const note = document.getElementById("customerNote").value.trim();
   if(!name || !selectedProduct) return;
 
-  // Menggunakan susunan teks murni menggunakan enter biasa
-  let textMessage = `Halo TOMZSTORE, saya ${name}.\n\nSaya tertarik dengan layanan:\n*${selectedProduct.name}* (${rupiah(selectedProduct.price)})`;
+  let textMessage = `Halo TOMZSTORE, saya ${name}.\n\nSaya berminat memesan layanan:\n*${selectedProduct.name}* (${rupiah(selectedProduct.price)})`;
   if(note) {
     textMessage += `\n\nDetail kebutuhan:\n${note}`;
   }
 
-  // Buka WhatsApp tanpa merangkap teks %0A
   window.open(`https://api.whatsapp.com/send?phone=${STORE.whatsapp}&text=${encodeURIComponent(textMessage)}`, "_blank");
   closeOrder();
 });
 
-// CHECKOUT DARI KERANJANG
 document.getElementById("checkoutCart").onclick = () => {
   if(!cart.length){alert("Belum ada layanan yang dipilih.");return;}
   const name = prompt("Masukkan nama kamu / nama usaha:");
