@@ -298,8 +298,9 @@ document.getElementById("orderForm").addEventListener("submit",e=>{
   const name=document.getElementById("customerName").value.trim();
   const note=document.getElementById("customerNote").value.trim();
   if(!name || !selectedProduct)return;
-  let message=`Halo TOMZSTORE, saya ${name}. Saya tertarik dengan layanan *${selectedProduct.name}* (${rupiah(selectedProduct.price)}).`;
-  if(note)message+=`Detail kebutuhan:${note}`;
+  // GUNAKAN CARA INI (Pakai \n untuk enter):
+  let message = `Halo TOMZSTORE, saya ${name}. Saya tertarik dengan layanan *${selectedProduct.name}* (${rupiah(selectedProduct.price)}).`;
+  if(note) message += `\n\nDetail kebutuhan:\n${note}`;
   window.open(`https://wa.me/${STORE.whatsapp}?text=${encodeURIComponent(message)}`,"_blank");
   closeOrder();
 });
